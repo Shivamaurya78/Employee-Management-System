@@ -1,7 +1,8 @@
 # Employee-Management-System
-# Employee Management System
 
-A **full-stack web application** for managing employee records, built using **Spring Boot** (backend) and **Angular** (frontend).
+I built a full-stack Employee Management System using Spring Boot and MySQL.
+The backend exposes REST APIs, and the frontend is built using HTML, CSS, and JavaScript served via Spring Boot static resources.
+I implemented DTO pattern, exception handling, and layered architecture (Controller-Service-Repository)
 
 ## Features
 
