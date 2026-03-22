@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome | EMS</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(120deg, #2c3e50, #3498db);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .login-box {
+            background: white;
+            color: #333;
+            padding: 30px;
+            width: 350px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <h1>Welcome</h1>
+    <p>Employee Management System</p>
+
+    <input type="text" id="username" placeholder="Admin Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+
+    <p id="error" style="color:red;"></p>
+</div>
+
+<script>
+    function login() {
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+
+        // TEMPORARY frontend login
+        if (user === "admin" && pass === "admin123") {
+            window.location.href = "dashboard.html";
+        } else {
+            document.getElementById("error").innerText =
+                "Invalid username or password";
+        }
+    }
+</script>
+
+</body>
+</html>

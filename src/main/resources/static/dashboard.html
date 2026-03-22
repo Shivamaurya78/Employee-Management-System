@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard | EMS</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            margin: 0;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logout {
+            background: red;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+        .container {
+            padding: 20px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div>Employee Management System</div>
+    <div class="logout" onclick="logout()">Logout</div>
+</header>
+
+<div class="container">
+    <h2>Add Employee</h2>
+
+    <input id="name" placeholder="Name">
+    <input id="department" placeholder="Department">
+    <input id="salary" placeholder="Salary">
+    <button onclick="addEmployee()">Add</button>
+
+    <h2>Employee List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    const apiUrl = "http://localhost:8080/employees";
+
+    window.onload = loadEmployees;
+
+    function logout() {
+        window.location.href = "login.html";
+    }
+
+    function loadEmployees() {
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById("tableBody");
+                tbody.innerHTML = "";
+                data.forEach(e => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${e.id}</td>
+                            <td>${e.name}</td>
+                            <td>${e.department}</td>
+                            <td>${e.salary}</td>
+                            <td>
+                                <button onclick="deleteEmployee(${e.id})">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>`;
+                });
+            });
+    }
+
+    function addEmployee() {
+        const emp = {
+            name: name.value,
+            department: department.value,
+            salary: salary.value
+        };
+
+        fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(emp)
+        }).then(() => loadEmployees());
+    }
+
+    function deleteEmployee(id) {
+        fetch(`${apiUrl}/${id}`, { method: "DELETE" })
+            .then(() => loadEmployees());
+    }
+</script>
+
+</body>
+</html>
